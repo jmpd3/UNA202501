@@ -46,12 +46,37 @@ namespace DAL.Implementations
 
         public bool Remove(T entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Set<T>().Attach(entity);
+                _context.Set<T>().Remove(entity);   
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
 
         public bool Update(T entity)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                _context.Entry(entity).State = Microsoft
+                                               .EntityFrameworkCore
+                                                .EntityState
+                                                .Modified;
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+
         }
     }
 }

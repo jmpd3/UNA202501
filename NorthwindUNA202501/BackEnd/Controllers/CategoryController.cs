@@ -12,16 +12,16 @@ namespace BackEnd.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        ICategoryService categoryService;
+        ICategoryService _categoryService;
         public CategoryController(ICategoryService categoryService) 
         {
-            categoryService = categoryService;
+            _categoryService = categoryService;
         } 
         // GET: api/<CategoryController>
         [HttpGet]
         public IEnumerable<CategoryDTO> Get()
         {
-            return categoryService.GetCategories();
+            return _categoryService.GetCategories();
         }
 
         // GET api/<CategoryController>/5
