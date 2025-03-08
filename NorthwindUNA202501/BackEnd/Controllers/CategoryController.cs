@@ -1,4 +1,6 @@
-﻿using DAL.Interfaces;
+﻿using BackEnd.DTO;
+using BackEnd.Services.Interfaces;
+using DAL.Interfaces;
 using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,16 +12,16 @@ namespace BackEnd.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        ICategoryDAL _categoryDAL;
-        public CategoryController(ICategoryDAL categoryDAL) 
+        ICategoryService categoryService;
+        public CategoryController(ICategoryService categoryService) 
         {
-            _categoryDAL = categoryDAL;
+            categoryService = categoryService;
         } 
         // GET: api/<CategoryController>
         [HttpGet]
-        public IEnumerable<Category> Get()
+        public IEnumerable<CategoryDTO> Get()
         {
-            return _categoryDAL.GetCategories();
+            return categoryService.GetCategories();
         }
 
         // GET api/<CategoryController>/5
@@ -31,8 +33,9 @@ namespace BackEnd.Controllers
 
         // POST api/<CategoryController>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Category category)
         {
+           
         }
 
         // PUT api/<CategoryController>/5
