@@ -1,5 +1,5 @@
-﻿using DAL.Interfaces;
-using Entities.Entities;
+﻿using BackEnd.DTO;
+using BackEnd.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -10,42 +10,45 @@ namespace BackEnd.Controllers
     [ApiController]
     public class ShipperController : ControllerBase
     {
-        IUnidadDeTrabajo unidadDeTrabajo;
-
-        public ShipperController(IUnidadDeTrabajo unidad)
+        IShipperService _shipperService;
+        public ShipperController(IShipperService shipperService)
         {
-            unidadDeTrabajo = unidad;
+            _shipperService = shipperService;
         }
         // GET: api/<ShipperController>
         [HttpGet]
-        public IEnumerable<Shipper> Get()
+        public IEnumerable<ShipperDTO> Get()
         {
-            return unidadDeTrabajo.ShipperDAL.Get();
-        }
+            return _shipperService.GetCategories();
+        }   
 
         // GET api/<ShipperController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ShipperDTO Get(int id)
         {
-            return "value";
+            return _shipperService.GetShipperById(id);
         }
 
         // POST api/<ShipperController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] ShipperDTO shipper)
         {
+            _shipperService.AddShipper(shipper);
+
         }
 
         // PUT api/<ShipperController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] ShipperDTO shipper)
         {
+            _shipperService.UpdateShipper(shipper);
         }
 
         // DELETE api/<ShipperController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _shipperService.DeleteShipper(id);
         }
     }
 }

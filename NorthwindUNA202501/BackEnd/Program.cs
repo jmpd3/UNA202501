@@ -16,7 +16,10 @@ builder.Services.AddSwaggerGen();
 
 #region DI
 builder.Services.AddDbContext<NorthWindContext>();
-builder.Services.AddScoped<IShipperDAL, ShipperDALImpl>();  
+builder.Services.AddScoped<IShipperDAL, ShipperDALImpl>();
+builder.Services.AddScoped<IShipperService, ShipperService>();
+builder.Services.AddScoped<ISupplierDAL, SupplierDALImpl>();
+builder.Services.AddScoped<ISupplierService, SupplierService>(); 
 builder.Services.AddScoped<IUnidadDeTrabajo, UnidadDeTrabajo>();
 builder.Services.AddScoped<ICategoryDAL, CategoryDALImpl>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
