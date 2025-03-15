@@ -47,7 +47,19 @@ namespace FrontEnd.Helpers.Implementations
 
         public CategoryViewModel Get(int id)
         {
-            throw new NotImplementedException();
+            var response = _helper.GetResponseMessage("api/category/" + id.ToString());
+            var category = new CategoryViewModel();
+            if (response != null)
+            {
+                var content = response.Content.ReadAsStringAsync().Result;
+
+                var result  = JsonConvert.DeserializeObject<CategoryAPI>(content);
+
+                category = Convertir(result);
+
+                
+            }
+            return category;
         }
 
         public List<CategoryViewModel> GetCategories()
